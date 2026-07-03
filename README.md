@@ -9,7 +9,7 @@
 
 *A secure, local, multi-user desktop credential manager built on Java Swing.*
 
-[Key Features](#-key-features) • [Application Showcase](#-application-showcase) • [Getting Started](#-getting-started) • [Project Structure](#-project-structure)
+[Key Features](#-key-features) • [Security & Implementation](#-security--implementation-details) • [Application Showcase](#-application-showcase) • [Getting Started](#-getting-started) • [Project Structure](#-project-structure)
 
 </div>
 
@@ -29,6 +29,47 @@
 * **User Monitoring**: Audit registered users and view counts of their saved password entries.
 * **Vault Inspection**: View raw encoded vault strings directly from the admin dashboard.
 * **System Log Viewer**: Audit system activity logs (`system.log`) in real-time.
+
+---
+
+## 🔒 Security & Implementation Details
+
+### 1. 🔑 Base64 Obfuscation
+Rather than storing credentials in plaintext, SecurePass Manager implements custom encoding/decoding using `java.util.Base64`.
+* **Password Security**: The master password in the user's `profile.dat` and all saved password entries inside `vault.dat` are encoded when saved, and decoded only when authentication or visualization requires it.
+* **Implementation (`Encoder.java`)**:
+  ```java
+  public class Encoder {
+      public static String encode(String s) {
+          return s == null ? "" : Base64.getEncoder().encodeToString(s.getBytes());
+      }
+
+      public static String decode(String s) {
+          if (s == null || s.isEmpty()) return "";
+          try {
+              return new String(Base64.getDecoder().decode(s));
+          } catch (Exception e) {
+              return "[DECODE ERROR]";
+          }
+      }
+  }
+  ```
+
+### 2. 🛡️ Multi-Factor Authentication (MFA)
+To prevent unauthorized entry even if the master password is leaked, a local MFA flow is implemented:
+* **Code Generation**: Upon account registration (`SignupScreen.java`), a random 6-digit code is dynamically generated:
+  ```java
+  String mfa = String.format("%06d", (int)(Math.random() * 1000000));
+  ```
+* **Storage & Display**: The user is shown their unique MFA code once upon sign-up, and it is stored securely on the third line of their local `profile.dat` file.
+* **Verification**: At login (`LoginScreen.java`), the user is prompted to enter their MFA code, which is validated against the stored value:
+  ```java
+  String input = JOptionPane.showInputDialog("Enter your 6-digit MFA code:");
+  if (input == null || !input.equals(mfaCode)) {
+      JOptionPane.showMessageDialog(panel, "Invalid MFA Code!");
+      return;
+  }
+  ```
 
 ---
 
