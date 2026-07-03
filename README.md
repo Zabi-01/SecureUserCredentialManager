@@ -1,52 +1,84 @@
-# SecurePass Manager
+<div align="center">
 
-SecurePass Manager is a desktop-based credential management system built in Java using the Swing UI library. It provides a secure, offline environment for managing user credentials, implementing local storage encryption, Multi-Factor Authentication (MFA), and a dual-role dashboard system (User and Administrator).
+# 🛡️ SecurePass Manager
 
-## Features
+[![Java Version](https://img.shields.io/badge/Java-8%2B-orange.svg?style=for-the-badge&logo=openjdk)](https://openjdk.org/)
+[![GUI Framework](https://img.shields.io/badge/UI-Swing%20%2F%20AWT-blue.svg?style=for-the-badge)](https://docs.oracle.com/javase/tutorial/uiswing/)
+[![Security](https://img.shields.io/badge/Security-Base64%20Obfuscation-green.svg?style=for-the-badge)](https://en.wikipedia.org/wiki/Base64)
+[![License](https://img.shields.io/badge/license-MIT-red.svg?style=for-the-badge)](LICENSE)
 
-* **User Authentication**: Secure Sign-up and Login interfaces.
-* **Multi-Factor Authentication (MFA)**: Adds an extra layer of security with a 6-digit MFA verification code required for both user and admin access.
-* **User Dashboard**:
-  * **Add Credentials**: Store website details, usernames, passwords, and custom notes.
-  * **View & Manage Vault**: Search, view, and organize saved credentials.
-* **Admin Dashboard**:
-  * Access with administrator credentials.
-  * View list of all registered users (showing username, email, and count of saved credentials).
-  * Track activity using real-time system logs.
-  * View individual user vaults (displays encoded credential strings).
-* **Data Security**: Encrypts and decodes vault data using Base64 encoding.
+*A secure, local, multi-user desktop credential manager built on Java Swing.*
 
-## Application Showcase
+[Key Features](#-key-features) • [Application Showcase](#-application-showcase) • [Getting Started](#-getting-started) • [Project Structure](#-project-structure)
 
-![SecurePass Manager UI Showcase](screenshots/gui_showcase.png)
+</div>
 
-## Getting Started
+---
+
+## 🔑 Key Features
+
+### 👤 User Features
+* **Double-Layer Authentication**: Register & log in securely using local profiles.
+* **Multi-Factor Authentication (MFA)**: Adds an extra 6-digit MFA code challenge for all user accounts.
+* **Personal Password Vault**:
+  * **Add Credentials**: Log site names, usernames, passwords, and custom notes.
+  * **Interactive Search & View**: Browse and manage your password entries in a structured list view.
+
+### 🛡️ Admin Features
+* **Secure Admin Access**: Access the administrative console with master admin credentials (`admin123` / MFA `123456`).
+* **User Monitoring**: Audit registered users and view counts of their saved password entries.
+* **Vault Inspection**: View raw encoded vault strings directly from the admin dashboard.
+* **System Log Viewer**: Audit system activity logs (`system.log`) in real-time.
+
+---
+
+## 📸 Application Showcase
+
+<div align="center">
+  <img src="screenshots/gui_showcase.png" alt="SecurePass Manager UI Showcase" width="800px" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);"/>
+</div>
+
+---
+
+## 🛠️ Getting Started
 
 ### Prerequisites
+* **Java Development Kit (JDK) 8** or higher installed.
 
-* Java Development Kit (JDK) 8 or higher installed.
+### Compilation and Run Instructions
 
-### Compilation and Execution
-
-1. Clone this repository (if not done already):
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/Zabi-01/SecureUserCredentialManager.git
-   ```
-2. Navigate to the project directory:
-   ```bash
    cd SecureUserCredentialManager
    ```
-3. Compile the Java files:
+
+2. **Compile the Java sources**:
    ```bash
    javac *.java
    ```
-4. Run the application:
+
+3. **Launch the application**:
    ```bash
    java SecurePassManager
    ```
 
-## Project Structure
+---
 
-* `users/`: Local folder containing user profile configurations (`profile.dat`) and secure password vaults (`vault.dat`) (git-ignored for security).
-* `logs/`: Contains system event logs (`system.log`) (git-ignored).
-* `screenshots/`: Project interface preview assets.
+## 📂 Project Structure
+
+```text
+SecureUserCredentialManager/
+├── 📁 screenshots/          # UI Showcase assets
+│   └── gui_showcase.png     # Application screenshot
+├── 📁 users/                # [Local Only] Encrypted user profile and vault directories (git-ignored)
+├── 📁 logs/                 # [Local Only] Application logs directory (git-ignored)
+├── 📄 *.java                # Application source code
+└── 📄 README.md             # Project documentation
+```
+
+---
+
+<div align="center">
+  Made with ❤️ for OOP Semester Project
+</div>
